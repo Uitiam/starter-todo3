@@ -102,9 +102,24 @@ class Mtce extends Application {
         {
             $priparms[$record->id] = $record->name;
         }
+
+        foreach ($this->statuses->all() as $record) {
+            $staparms[$record->id] = $record->name;
+        }
+
+        foreach($this->groups->all() as $record){
+            $groupparms[$record->id] = $record->name;
+        }
+
+        foreach ($this->sizes->all() as $record) {
+            $sizeparms[$record->id] = $record->name;
+        }
         $fields = array(
             'ftask' => makeTextField('Task description', 'task', $task->task, 'Work', "What needs to be done?"),
             'fpriority' => makeComboBox('Priority', 'priority', $task->priority, $priparms, "How important is this task?"),
+            'fstatus' => makeComboBox('Status', 'status', $task->status, $staparms, "What is the status of this stask"),
+            'fgroup' => makeComboBox('Group', 'group', $task->group. $groupparms, "What group is this task in"),
+            'fsize' => makeComboBox('Size', 'size', $task->size, $sizeparms, "What is the size of this task"),
             'zsubmit' => makeSubmitButton('Update the TODO task', "Click on home or <back> if you don't want to change anything!", 'btn-success'),
         );
         $this->data = array_merge($this->data, $fields);
